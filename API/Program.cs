@@ -22,7 +22,7 @@ namespace API {
                     context.Database.Migrate ();
                 } catch (Exception ex) {
                     var logger = servise.GetRequiredService<ILogger<Program>> ();
-                    logger.LogError (ex, "An Error occured druring migration");
+                    logger.LogError (ex, "An Error occurred during migration");
                 }
 
             }
