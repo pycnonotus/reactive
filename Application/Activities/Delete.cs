@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Persistence;
 
+
 namespace Application.Activities
 {
     public class Delete
@@ -23,6 +24,7 @@ namespace Application.Activities
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+
                 var activity = await _context.Activities.FindAsync(request.Id);
                 if (activity == null) throw new Exception("Could not find activity");
 
