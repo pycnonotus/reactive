@@ -1,6 +1,5 @@
 import React from "react";
 import { Menu, Container, Button } from "semantic-ui-react";
-import { inflate } from "zlib";
 
 interface IProps {
   openCreatForm: () => void;

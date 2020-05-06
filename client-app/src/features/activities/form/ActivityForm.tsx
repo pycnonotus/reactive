@@ -1,15 +1,20 @@
 import React, { useState, FormEvent } from "react";
 import { Segment, Form, Button } from "semantic-ui-react";
 import { IActivity } from "../../../app/models/activity";
+import { v4 as uuid } from "uuid";
 
 interface IProps {
   setEditMode: (editMode: boolean) => void;
   activity: IActivity;
+  creatActivity: (activity: IActivity) => void;
+  editActivity: (activity: IActivity) => void;
 }
 
 const ActivityForm: React.FC<IProps> = ({
   setEditMode,
   activity: initialFormState,
+  creatActivity,
+  editActivity,
 }) => {
   const initializeForm = () => {
     if (initialFormState) {
@@ -35,7 +40,15 @@ const ActivityForm: React.FC<IProps> = ({
     setActivity({ ...activity, [name]: value });
   };
   const handelSubmit = () => {
-    console.log(activity);
+    if (activity.id.length === 0) {
+      let newActivity = {
+        ...activity,
+        id: uuid(),
+      };
+      creatActivity(newActivity);
+    } else {
+      editActivity(activity);
+    }
   };
   return (
     <Segment clearing>
@@ -60,7 +73,7 @@ const ActivityForm: React.FC<IProps> = ({
           name="category"
         />
         <Form.Input
-          type="date"
+          type="datetime-local"
           placeholder="Date"
           value={activity.date}
           onChange={handelInputChange}
