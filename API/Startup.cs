@@ -38,6 +38,7 @@ namespace API
                 opt.AddPolicy("CrosPolicy", policy =>
                 {
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://85.65.61.221:3000");
                 });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
