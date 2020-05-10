@@ -1,11 +1,22 @@
-import React, { useState, useEffect, Fragment, SyntheticEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  Fragment,
+  SyntheticEvent,
+  useContext,
+} from "react";
 import { Container } from "semantic-ui-react";
 import { IActivity } from "../models/activity";
 import NavBar from "../../features/nav/NavBar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import agent from "../api/agent";
 import LoadingComponents from "./LoadingComponents";
+import ActivityStore from "../stores/activityStore";
+import { observer } from "mobx-react-lite";
+
 const App = () => {
+  const activityStore = useContext(ActivityStore);
+
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(
     null
@@ -71,32 +82,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    agent.Activities.list()
-      .then((response) => {
-        let activities: IActivity[] = [];
-        response.forEach((activity) => {
-          activity.date = activity.date.split(".")[0];
-          activities.push(activity);
-        });
-        setActivities(activities);
-      })
-      .then(() => {
-        setLoading(false);
-      });
-  }, []);
-  if (loading) return <LoadingComponents content="Loading Activities..." />;
+    activityStore.loadActivities();
+  }, [activityStore]);
+  if (activityStore.loadingInitial)
+    return <LoadingComponents content="Loading Activities..." />;
 
   return (
     <Fragment>
       <NavBar openCreatForm={handelOpenCreateForm} />
       <Container style={{ marginTop: "7em" }}>
         <ActivityDashboard
-          activities={activities}
+          activities={activityStore.activities}
           selectActivity={handelSelectActivity}
-          selectedActivity={selectedActivity!}
           editMode={editMode}
-          setEditMode={setEditMode}
-          setSelectedActivity={setSelectedActivity}
           creatActivity={handelCreateActivity}
           editActivity={handelEditActivity}
           deleteActivity={handelDeleteActivity}
@@ -110,4 +108,4 @@ const App = () => {
   // function App() {
 };
 
-export default App;
+export default observer(App);

@@ -4,21 +4,12 @@ import { IActivity } from "../../../app/models/activity";
 import { v4 as uuid } from "uuid";
 
 interface IProps {
-  setEditMode: (editMode: boolean) => void;
-  activity: IActivity;
-  creatActivity: (activity: IActivity) => void;
-  editActivity: (activity: IActivity) => void;
   submitting: boolean;
 }
 
-const ActivityForm: React.FC<IProps> = ({
-  setEditMode,
-  activity: initialFormState,
-  creatActivity,
-  editActivity,
-  submitting,
-}) => {
+const ActivityForm: React.FC<IProps> = ({ submitting }) => {
   const initializeForm = () => {
+    let initialFormState: any;
     if (initialFormState) {
       return initialFormState;
     } else {
@@ -33,7 +24,7 @@ const ActivityForm: React.FC<IProps> = ({
       };
     }
   };
-  const [activity, setActivity] = useState<IActivity>(initializeForm);
+  const [activity, setActivity] = useState<IActivity>(initializeForm!);
 
   const handelInputChange = (
     event: FormEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,9 +38,9 @@ const ActivityForm: React.FC<IProps> = ({
         ...activity,
         id: uuid(),
       };
-      creatActivity(newActivity);
+      // creatActivity(newActivity);
     } else {
-      editActivity(activity);
+      // editActivity(activity);
     }
   };
   return (
@@ -105,7 +96,7 @@ const ActivityForm: React.FC<IProps> = ({
           type="button"
           content="Cancel"
           onClick={() => {
-            setEditMode(false);
+            // setEditMode(false);
           }}
         />
       </Form>
