@@ -127,8 +127,8 @@ export class ActivityStore {
           this.activity = activity;
         });
       } catch (error) {
-        runInAction("getting activity eror", () => {});
-        console.log("error at loadActivity activityStore", error);
+        runInAction("getting activity error", () => {});
+        throw error;
       } finally {
         runInAction("finally loadActivity activityStore", () => {
           this.loadingInitial = false;

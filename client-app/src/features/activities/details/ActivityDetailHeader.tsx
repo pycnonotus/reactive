@@ -33,10 +33,10 @@ const ActivityDetailHeader: React.FC<{ activity: IActivity }> = ({
               <Item.Content>
                 <Header
                   size="huge"
-                  content={"Title"}
+                  content={activity.title}
                   style={{ color: "white" }}
                 />
-                <p>Date</p>
+                <p>{activity.date}</p>
                 <p>
                   Hosted by <strong>Bob</strong>
                 </p>
