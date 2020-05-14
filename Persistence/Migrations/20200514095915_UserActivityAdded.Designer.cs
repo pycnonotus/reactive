@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200514095915_UserActivityAdded")]
+    partial class UserActivityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,17 +152,22 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Value 101"
+                            Name = "Value101"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Value 102"
+                            Name = "Value102"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Value 103"
+                            Name = "Value103"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Value104"
                         });
                 });
 
