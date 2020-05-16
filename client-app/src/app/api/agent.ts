@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { IActivity } from "../models/activity";
-import { history } from "../..";
 import { toast } from "react-toastify";
+import { history } from "../..";
+import { IActivity } from "../models/activity";
+import { IPhoto, IProfile } from "../models/Profile";
 import { IUser, IUserFormValues } from "../models/user";
-import { IProfile, IPhoto } from "../models/Profile";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 

@@ -23,7 +23,7 @@ const ProfilePage: React.FC<IProps> = ({ match }) => {
     return <LoadingComponents content="Loading profile..." />;
   }
   if (!profile) {
-    return <div>null</div>;
+    return <div>Error loading profile page</div>;
   }
   return (
     <Grid>
