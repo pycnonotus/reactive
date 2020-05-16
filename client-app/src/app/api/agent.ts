@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { history } from "../..";
 import { IActivity } from "../models/activity";
 import { IPhoto, IProfile } from "../models/Profile";
-import { IUser, IUserFormValues } from "../models/user";
+import { IUser, IUserFormValues, IUserBio } from "../models/user";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 
@@ -90,6 +90,7 @@ const Profiles = {
     requests.postForm(`/photos`, photo),
   setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
   deletePhoto: (id: string) => requests.del(`/photos/${id}`),
+  updateBio: (about: IUserBio) => requests.put('/profiles',about)
 };
 
 export default {

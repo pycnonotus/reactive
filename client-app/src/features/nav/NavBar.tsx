@@ -12,7 +12,7 @@ const NavBar = () => {
       <Container>
         <Menu.Item header as={NavLink} exact to="/">
           <img src="/assets/logo.png" alt="logo" style={{ marginRight: 15 }} />
-          Reactivities
+          Eventer
         </Menu.Item>
         <Menu.Item name="activities" as={NavLink} to="/activities" />
         <Menu.Item name="friends">

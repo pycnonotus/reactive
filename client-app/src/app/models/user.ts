@@ -11,3 +11,7 @@ export interface IUserFormValues {
   displayName?: string;
   username: string;
 }
+export interface IUserBio {
+  displayName: string;
+  bio: string;
+}

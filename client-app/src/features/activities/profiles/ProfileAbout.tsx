@@ -1,12 +1,20 @@
-import React, { useContext, useState, Fragment } from "react";
+import React, { useContext, useState, Fragment, useEffect } from "react";
 import { Tab, Grid, Header, GridColumn, Button } from "semantic-ui-react";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import BioForm from "../form/BioForm";
+import { observer } from "mobx-react-lite";
 
 const ProfileAbout = () => {
   const rootStore = useContext(RootStoreContext);
   const { profile, isCurrentUser } = rootStore.profileStore;
   const [editBioMode, setEditBioMode] = useState(false);
+
+  // useEffect(()=>{
+  //   if(profile){
+
+  //   }
+  // })
+
   return (
     <Tab.Pane>
       <Grid>
@@ -36,7 +44,7 @@ const ProfileAbout = () => {
               )}
             </Fragment>
           ) : (
-            <BioForm />
+            <BioForm setEdit={setEditBioMode} />
           )}
         </Grid.Column>
       </Grid>
@@ -44,4 +52,4 @@ const ProfileAbout = () => {
   );
 };
 
-export default ProfileAbout;
+export default observer(ProfileAbout);

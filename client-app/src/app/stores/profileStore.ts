@@ -4,6 +4,7 @@ import { observable, action, runInAction, computed } from "mobx";
 import agent from "../api/agent";
 import { IProfile, IPhoto } from "../models/Profile";
 import { toast } from "react-toastify";
+import { IUserBio } from "../models/user";
 
 export default class ProfileStore {
   rootStore: RootStore;
@@ -15,6 +16,7 @@ export default class ProfileStore {
   @observable loadingProfile = true;
   @observable uploadingPhoto = false;
   @observable loadingPhoto = false;
+  @observable loadingBio = false;
 
   @computed get isCurrentUser() {
     if (this.rootStore.userStore && this.profile) {
@@ -97,6 +99,23 @@ export default class ProfileStore {
       toast.error("problem deleting the photo");
       runInAction(() => {
         this.loadingPhoto = false;
+      });
+    }
+  };
+
+  @action updateBio = async (about: IUserBio) => {
+    this.loadingBio = true;
+    try {
+      await agent.Profiles.updateBio(about);
+      runInAction(() => {
+        this.profile!.bio = about.bio;
+        this.profile!.displayName = about.displayName;
+        this.loadingBio = false;
+      });
+    } catch (error) {
+      toast.error("Problem updating the bio");
+      runInAction(() => {
+        this.loadingBio = false;
       });
     }
   };
