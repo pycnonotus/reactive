@@ -16,10 +16,13 @@ const ActivityDetailChat = () => {
   } = rootStore.activityStore;
 
   useEffect(() => {
-    createHubConnection(activity!.id);
-    return () => {
-      stopHubConnection();
-    };
+    if (activity?.id) {
+      console.log("333");
+      createHubConnection(activity!.id);
+      return () => {
+        stopHubConnection();
+      };
+    }
   }, [createHubConnection, stopHubConnection]);
 
   return (

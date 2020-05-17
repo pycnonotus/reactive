@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { history } from "../..";
-import { IActivity } from "../models/activity";
+import { IActivity, IActivityEnvelope } from "../models/activity";
 import { IPhoto, IProfile } from "../models/Profile";
 import { IUser, IUserFormValues, IUserBio } from "../models/user";
 
@@ -45,6 +45,11 @@ const sleep = (ms: number) => (response: AxiosResponse) =>
   new Promise<AxiosResponse>((resolve) =>
     setTimeout(() => resolve(response), ms)
   );
+const printPromise = (str: string) => (response: AxiosResponse) =>
+  new Promise<AxiosResponse>((resolve) => {
+    console.log(str);
+    return resolve(response);
+  });
 
 const requests = {
   get: (url: string) => axios.get(url).then(sleep(1000)).then(responseBody),
@@ -65,7 +70,15 @@ const requests = {
 };
 
 const Activities = {
-  list: (): Promise<IActivity[]> => requests.get("/activities"),
+  list: (params: URLSearchParams): Promise<IActivityEnvelope> =>
+    axios
+      .get("/activities", { params: params })
+      .then(sleep(1000))
+      .then(responseBody),
+
+  // axios
+  //.get("/activities", { params: params })
+  // requests.get("/activities").then(printPromise("oops")).then(responseBody),
   details: (id: string) => requests.get(`/activities/${id}`),
   create: (activity: IActivity) => requests.post("/activities", activity),
   update: (activity: IActivity) =>
@@ -96,6 +109,8 @@ const Profiles = {
   unfollow: (username: string) => requests.del(`/profiles/${username}/follow`),
   listFollowings: (username: string, predicate: string) =>
     requests.get(`profiles/${username}/follow?predicate=${predicate}`),
+  listActivities: (username: string, predicate: string) =>
+    requests.get(`/profiles/${username}/activities?predicates=${predicate}`),
 };
 
 export default {
