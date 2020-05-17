@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction, values } from "mobx";
+import { observable, action, computed, runInAction } from "mobx";
 import { SyntheticEvent } from "react";
 import { IActivity } from "../models/activity";
 import agent from "../api/agent";
@@ -31,14 +31,16 @@ export default class ActivityStore {
         accessTokenFactory: () => this.rootStore.commonStore.token!,
       })
       .configureLogging(LogLevel.Information)
-      .build();
 
+      .build();
+    console.log("Attempting to join group1");
     this.hubConnection
       .start()
       .then(() => console.log(this.hubConnection!.state))
       .then(() => {
         console.log("Attempting to join group");
         this.hubConnection!.invoke("AddToGroup", activityId);
+        console.log("cc");
       })
       .catch((error) => console.log("Error with signalR", error));
 
