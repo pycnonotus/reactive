@@ -82,7 +82,8 @@ export default class ActivityStore {
       .then(() => console.log(this.hubConnection!.state))
       .then(() => {
         console.log("Attempting to join group");
-        this.hubConnection!.invoke("AddToGroup", activityId);
+        if (this.hubConnection!.state === "Connected")
+          this.hubConnection?.invoke("AddToGroup", activityId);
         console.log("cc");
       })
       .catch((error) => console.log("Error with signalR", error));

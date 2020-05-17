@@ -6,7 +6,12 @@ import { Link } from "react-router-dom";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import { observer } from "mobx-react-lite";
 import { formatDistance } from "date-fns";
-const ActivityDetailChat = () => {
+
+interface IProps {
+  id: string;
+}
+
+const ActivityDetailChat: React.FC<IProps> = ({ id }) => {
   const rootStore = useContext(RootStoreContext);
   const {
     createHubConnection,
@@ -16,14 +21,13 @@ const ActivityDetailChat = () => {
   } = rootStore.activityStore;
 
   useEffect(() => {
-    if (activity?.id) {
-      console.log("333");
+    if (activity!.id) {
       createHubConnection(activity!.id);
       return () => {
         stopHubConnection();
       };
     }
-  }, [createHubConnection, stopHubConnection]);
+  }, [createHubConnection, stopHubConnection, activity]);
 
   return (
     <Fragment>
