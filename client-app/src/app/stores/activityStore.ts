@@ -57,7 +57,7 @@ export default class ActivityStore {
       .then(() => {
         this.hubConnection!.stop();
       })
-      .then(() => console.log("Connection stoped"))
+      .then(() => console.log("Connection stopped"))
       .catch((err) => console.log(err));
   };
 
