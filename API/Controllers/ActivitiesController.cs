@@ -18,7 +18,6 @@ namespace API.Controllers
         public async Task<ActionResult<List.ActivitiesEnvelope>>
          List(int? limit, int? offset, bool isGoing, bool isHost, DateTime? startDate)
         {
-            Console.WriteLine("xx");
             return await Mediator.Send(new List.Query(limit, offset, isGoing, isHost, startDate));
         }
 
